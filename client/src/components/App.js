@@ -6,7 +6,7 @@ import * as actions from '../actions';
 import Header from './Header';
 import Landing from './Landing';
 import Dashboard from './Dashboard';
-import SurveyNew from './surveys/SurveyNew'; 
+import SurveyNew from './surveys/SurveyNew';
 
 class App extends Component {
   componentDidMount() {
@@ -27,7 +27,6 @@ class App extends Component {
       </div>
     );
   }
-  
-};
+}
 
 export default connect(null, actions)(App);

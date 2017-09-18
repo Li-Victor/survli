@@ -1,22 +1,30 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Payments from './Payments';
 
-class Header extends Component {
+class Header extends React.Component {
   renderContent() {
-    switch(this.props.auth) {
+    switch (this.props.auth) {
       case null:
-        return;
+        return null;
       case false:
-        return <li><a href="/auth/google">Login With Google</a></li>;
+        return (
+          <li>
+            <a href="/auth/google">Login With Google</a>
+          </li>
+        );
       default:
         return [
-          <li key="1"><Payments /></li>,
+          <li key="1">
+            <Payments />
+          </li>,
           <li key="3" style={{ margin: '0 10px' }}>
             Credits: {this.props.auth.credits}
           </li>,
-          <li key="2"><a href="/api/logout">Logout</a></li>
+          <li key="2">
+            <a href="/api/logout">Logout</a>
+          </li>
         ];
     }
   }
@@ -25,14 +33,10 @@ class Header extends Component {
     return (
       <nav>
         <div className="nav-wrapper">
-          <Link to={this.props.auth ? '/surveys' : '/' } className="left brand-logo">
-            Survly
+          <Link to={this.props.auth ? '/surveys' : '/'} className="left brand-logo">
+            Emaily
           </Link>
-          <ul className="right">
-            <li>
-              {this.renderContent()}
-            </li>
-          </ul>
+          <ul className="right">{this.renderContent()}</ul>
         </div>
       </nav>
     );
@@ -42,5 +46,4 @@ class Header extends Component {
 function mapStateToProps({ auth }) {
   return { auth };
 }
-
 export default connect(mapStateToProps)(Header);
