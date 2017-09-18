@@ -1,13 +1,13 @@
 const sendgrid = require('sendgrid');
+
 const helper = sendgrid.mail;
 const keys = require('../config/keys');
 
 class Mailer extends helper.Mail {
-  constructor({ subject, recipients}, content) {
+  constructor({ subject, recipients }, content) {
     super();
 
     this.sgApi = sendgrid(keys.sendGridKey);
-
     this.from_email = new helper.Email('no-reply@survly.com');
     this.subject = subject;
     this.body = new helper.Content('text/html', content);
@@ -18,10 +18,9 @@ class Mailer extends helper.Mail {
     this.addRecipients();
   }
 
+  // eslint-disable-next-line
   formatAddresses(recipients) {
-    return recipients.map(({ email }) => {
-      return new helper.Email(email);
-    });
+    return recipients.map(({ email }) => new helper.Email(email));
   }
 
   addClickTracking() {
@@ -34,13 +33,10 @@ class Mailer extends helper.Mail {
 
   addRecipients() {
     const personalize = new helper.Personalization();
-
-    this.recipients.forEach(recipient => {
+    this.recipients.forEach((recipient) => {
       personalize.addTo(recipient);
     });
-
     this.addPersonalization(personalize);
-    
   }
 
   async send() {
@@ -50,7 +46,7 @@ class Mailer extends helper.Mail {
       body: this.toJSON()
     });
 
-    const response = await this.sgAPI.API(request);
+    const response = await this.sgApi.API(request);
     return response;
   }
 }
