@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import { reduxForm, Field } from 'redux-form';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import SurveyField from './SurveyField';
 import validateEmails from '../../utils/validateEmails';
 import formFields from './formFields';
@@ -43,5 +44,10 @@ function validate(values) {
 
   return errors;
 }
+
+SurveyForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  onSurveySubmit: PropTypes.func.isRequired
+};
 
 export default reduxForm({ validate, form: 'surveyForm', destroyOnUnmount: false })(SurveyForm);

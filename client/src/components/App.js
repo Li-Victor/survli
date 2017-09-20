@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import * as actions from '../actions';
 
 import Header from './Header';
@@ -28,5 +29,9 @@ class App extends Component {
     );
   }
 }
+
+App.propTypes = {
+  fetchUser: PropTypes.func.isRequired
+};
 
 export default connect(null, actions)(App);
